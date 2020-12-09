@@ -1,25 +1,71 @@
-import logo from './logo.svg';
+import React,{Component} from 'react';
 import './App.css';
+import Image from './logo.svg';
+import Customer from './Components/Customer';
+import Table from '@material-ui/core/Table';
+import Paper from '@material-ui/core/Paper';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import {withStyles} from '@material-ui/core/styles'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const styles = theme => ({
+  root:{
+    width : '100%',
+    marginTop: theme.spacing.unit,
+    overflowX:"auto"
+  },
+  table:{
+    minWidth: 1080
+  }
+})
+
+const customers = 
+        [
+          { id:1,
+            image:Image,
+            name:"홍길동",
+            age:19,
+            job:"장군"
+          },
+          { id:2,
+            image:Image,
+            name:"구길동",
+            age:29,
+            job:"변호사"
+          },
+          { id:3,
+            image:Image,
+            name:"이길동",
+            age:39,
+            job:"의사"
+          }
+        ]
+
+class App extends Component {  
+  render(){
+      const {classes} = this.props;
+      return (
+        <Paper className={classes.root}>      
+            <h1>Let's Develop Management System!!</h1>            
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>성명</TableCell>
+                  <TableCell>이미지</TableCell>
+                  <TableCell>나이</TableCell>
+                  <TableCell>직업</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {customers.map(c => {return(<Customer key={c.id} id={c.id} image={c.image} name={c.name} age={c.age} job={c.job} />);})}
+              </TableBody>
+            </Table>
+        </Paper>
+      );
+    }
 }
 
-export default App;
+export default withStyles(styles)(App);
